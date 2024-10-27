@@ -9,6 +9,7 @@ function App() {
     { id: 1, text: 'Task 2', completed: false },
     { id: 2, text: 'Task 3', completed: false }
   ]);
+  const [filter, setFilter] = useState('all');
 
   const addTask = (task) => {
     setTasks([...tasks, { id: tasks.length, text: task, completed: false }]);
@@ -26,12 +27,26 @@ function App() {
 
   const pendingTasks = tasks.filter(task => !task.completed).length;
 
+  const filteredTasks = tasks.filter(task => {
+    if (filter === 'pending') return !task.completed;
+    if (filter === 'completed') return task.completed;
+    return true;
+  });
+
   return (
     <div className="app">
       <h1>Daily Planner</h1>
       <TaskForm addTask={addTask} />
+
       <h2>You have {pendingTasks} tasks remaining</h2>
-      {tasks.map(task => (
+
+      <div className="filter-buttons">
+        <button onClick={() => setFilter('all')}>All</button>
+        <button onClick={() => setFilter('pending')}>Pending</button>
+        <button onClick={() => setFilter('completed')}>Completed</button>
+      </div>
+
+      {filteredTasks.map(task => (
         <Task
           key={task.id}
           task={task}

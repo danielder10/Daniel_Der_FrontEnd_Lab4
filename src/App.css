@@ -72,3 +72,11 @@ button {
 button:hover {
   background-color: lightgrey;
 }
+
+.filter-buttons {
+  margin-bottom: 20px; 
+}
+
+.filter-buttons button {
+  margin: 0 5px; 
+}
